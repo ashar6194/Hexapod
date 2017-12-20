@@ -1,0 +1,133 @@
+void password(int c , int x) //c tells whether password or user id+it also gives the position of display, x gives the no. of characters
+{   
+    int y = 0;
+    while(y<x)
+    {
+        PORTD = 0b11101111;
+        if(PIND.0 == 0)      //1
+        {
+            while(PIND.0 == 0){}
+            takePass[y] = '1';
+            ++y;
+            if(c == 0)lcd_putchar('*');
+            else lcd_putchar('1');
+        }
+        else if(PIND.1 == 0)      //4
+        {
+            while(PIND.1 == 0){}
+            takePass[y] = '4';
+            ++y;              
+            if(c == 0)lcd_putchar('*');
+            else lcd_putchar('4');
+        }
+        else if(PIND.2 == 0)      //7
+        {
+            while(PIND.2 == 0){}
+            takePass[y] = '7';
+            ++y;              
+            if(c == 0)lcd_putchar('*');
+            else lcd_putchar('7');
+        }
+        else if(y>0)            //backspace
+        {
+            if(PIND.3 == 0)
+            {
+                while(PIND.3 == 0){}
+                lcd_gotoxy(--y+c,1);
+                lcd_putchar(' ');
+                lcd_gotoxy(y+c,1);
+            }
+        }                                  
+        PORTD = 0b11011111;
+        if(PIND.0 == 0)      //2
+        {
+            while(PIND.0 == 0){}
+            takePass[y] = '2';
+            ++y;
+            if(c == 0)lcd_putchar('*');
+            else lcd_putchar('2');
+        }
+        else if(PIND.1 == 0)      //5
+        {
+            while(PIND.1 == 0){}
+            takePass[y] = '5';
+            ++y;              
+            if(c == 0)lcd_putchar('*');
+            else lcd_putchar('5');
+        }
+        else if(PIND.2 == 0)      //8
+        {
+            while(PIND.2 == 0){}
+            takePass[y] = '8';
+            ++y;              
+            if(c == 0)lcd_putchar('*');
+            else lcd_putchar('8');
+        }
+        else if(PIND.3 == 0)      //0
+        {
+            while(PIND.3 == 0){}
+            takePass[y] = '0';
+            ++y;              
+            if(c == 0)lcd_putchar('*');
+            else lcd_putchar('0');
+        }
+        PORTD = 0b10111111;
+        if(PIND.0 == 0)      //3
+        {
+            while(PIND.0 == 0){}
+            takePass[y] = '3';
+            ++y;              
+            if(c == 0)lcd_putchar('*');
+            else lcd_putchar('3');
+        }
+        else if(PIND.1 == 0)      //6
+        {
+            while(PIND.1 == 0){}
+            takePass[y] = '6';
+            ++y;              
+            if(c == 0)lcd_putchar('*');
+            else lcd_putchar('6');
+        }
+        else if(PIND.2 == 0)      //9
+        {
+            while(PIND.2 == 0){}
+            takePass[y] = '9';
+            ++y;              
+            if(c == 0)lcd_putchar('*');
+            else lcd_putchar('9');
+        }
+        PORTD = 0b01111111;    //cancle
+        if(PIND.0 == 0)
+        {
+            while(PIND.0 == 0){}
+            takePass[0] = '\0';
+            break;
+        }
+        while(y == x)
+        {   
+            PORTD = 0b11101111; //backspace
+            if(PIND.3 == 0)
+            {
+                while(PIND.3 == 0){}
+                lcd_gotoxy(--y+c,1);
+                lcd_putchar(' ');
+                lcd_gotoxy(y+c,1);
+                break;
+            }
+            PORTD = 0b10111111; //enter
+            if(PIND.3 == 0)
+            {
+                while(PIND.3 == 0){}
+                takePass[x] = '\0';
+                break;
+            }
+            PORTD = 0b01111111; //cancle    
+            if(PIND.0 == 0)
+            {
+                while(PIND.0 == 0){}
+                takePass[0] = '\0';
+                break;
+            }
+        }   
+    }
+}
